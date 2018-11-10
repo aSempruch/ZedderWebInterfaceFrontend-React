@@ -112,7 +112,7 @@ var DownloadButton = (classes) => (
 
 var SearchField = (classes, initSearch) => (
     <InputBase
-        placeholder="Search…"
+        placeholder="Search NetID…"
         classes={{
             root: classes.inputRoot,
             input: classes.inputInput,

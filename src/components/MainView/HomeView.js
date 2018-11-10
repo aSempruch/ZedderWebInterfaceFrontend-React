@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import DataCard from './DataCard';
 import BarChart from './BarChart';
-import fetcher from '../../util/fetcher';
+import { getTop } from '../../util/fetcher';
+import { dateToString } from '../../util'
 import moment from 'moment';
 
 class MainView extends Component {
@@ -32,7 +33,10 @@ class MainView extends Component {
         return (
             <div>
                 {this.state.topMonth &&
-                (<DataCard content={<BarChart data={normalizeTopData(this.state.topMonth)}/>} title={`Top coverages ${moment(start).format('MM/DD/YY')} - ${moment(end).format('MM/DD/YY')}`}/>)
+                    (<DataCard
+                        content={<BarChart data={normalizeTopData(this.state.topMonth)}/>}
+                        title={`Top Coverages ${dateToString(start, end)}`}
+                    />)
                 }
             </div>
         );
@@ -40,10 +44,9 @@ class MainView extends Component {
 }
 
 function loadTopRange(start, end) {
-    fetcher.getTop(moment(start).format('YYYY-MM-DD'), moment(end).format('YYYY-MM-DD'),
+    getTop(moment(start).format('YYYY-MM-DD'), moment(end).format('YYYY-MM-DD'),
         (res, err) => {
-            if(err)
-                return console.log('Unable to retrieve top data');
+            if(err) return console.log('Unable to retrieve top data');
             this.setState({topMonth: res});
         })
 }

@@ -9,7 +9,7 @@ class MainView extends Component {
         if(!query)
             return <HomeView date={date}/>
         else
-            return <SearchView query={query}/>
+            return <SearchView date={date} query={query}/>
     }
 }
 
